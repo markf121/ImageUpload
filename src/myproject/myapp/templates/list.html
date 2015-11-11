@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>FYP prototype</title>
+</head>
+<body>
+	<h1>Image Upload Prototpye</h1>
+	<h3>Uploaded images:</h3>
+	{% if documents %}
+		<ul>
+			{% for document in documents %}
+				<li><img src="{{ document.userImage.url }}" alt="{{ document.userImage.name }}"></img></li>
+			{% endfor %}
+		</ul>
+
+	{% else %}
+		<p>No images to display</p>
+	{% endif %}
+
+	<br>
+
+	<form action="{% url 'list' %}" method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<p>{{ form.non_field_errors }}</p>
+		<p>{{ form.userImage.label_tag }} {{ form.userImage.help_text }}</p>
+		<p>
+			{{ form.userImage.errors }}
+			{{ form.userImage}}
+		</p>
+		<br>
+		<input type="submit" value="Upload">
+	</form>
+</body>
+</html>
